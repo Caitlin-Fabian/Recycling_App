@@ -1,7 +1,7 @@
 # Recycling_App
 
 
-##Instructions
+## Instructions
 
 Clone the repo and run npm install to get all of the necessary node modules.
 

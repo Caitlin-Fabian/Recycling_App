@@ -1,4 +1,4 @@
-# Recycling_App
+# Recycling App
 
 
 ## Instructions

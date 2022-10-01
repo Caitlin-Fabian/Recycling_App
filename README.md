@@ -2,6 +2,7 @@
 
 
 ##Instructions
+
 Clone the repo and run npm install to get all of the necessary node modules.
 
 Navigate to the directory in your terminal and npm start.

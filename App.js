@@ -22,9 +22,9 @@ export default function App() {
           options={{ title: 'Welcome' }}
         />
         <Stack.Screen
-          name = "HomeScreen"
-          component = {HomeScreen}
-          options = {{ title: 'Home' }}
+          name="HomeScreen"
+          component={HomeScreen}
+          options={{ title: 'Home' }}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -3,12 +3,13 @@ import { useCallback, useState } from 'react';
 import { Text,View,Image,StyleSheet, TextInput, Alert,Button } from "react-native";
 import { useFonts} from "expo-font";
 import * as SplashScreen from 'expo-splash-screen';
-import Realm from "realm";
 
 
 
 const LoginScreen = () => {
-  const [text, setText] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
 
 
   const [fontsLoaded] = useFonts({
@@ -33,16 +34,16 @@ const LoginScreen = () => {
               <Text style={styles.text}>Email:</Text>
               <TextInput
                 style={styles.contentInput}
-                placeholder="email@address.com"
-                onChangeText={newText => setText(newText)}
-                defaultValue ={text}
+                placeholder="email@adress.com"
+                onChangeText={newText => setEmail(newText)}
+                defaultValue ={email}
               />  
               <Text style={styles.text}>Password:</Text>
                  <TextInput
                 style={styles.contentInput}
                 placeholder="password"
-                onChangeText={newText => setText(newText)}
-                defaultValue ={text}
+                onChangeText={newText => setPassword(newText)}
+                defaultValue ={password}
               />
             </View>
             <Button

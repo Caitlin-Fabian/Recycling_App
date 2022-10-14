@@ -3,10 +3,11 @@ import { useCallback, useState } from 'react';
 import { Text,View,Image,StyleSheet, TextInput, Alert,Button } from "react-native";
 import { useFonts} from "expo-font";
 import * as SplashScreen from 'expo-splash-screen';
+import { NavigationContainer } from '@react-navigation/native';
 
 
 
-const LoginScreen = () => {
+const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -48,9 +49,9 @@ const LoginScreen = () => {
             </View>
             <Button
               title= "Sumbit" 
-              onPress={()=> Alert.alert('Will fix later')}
+              onPress={()=> navigation.navigate('HomeScreen')}
             />
-
+            
         </View>
     );
 }

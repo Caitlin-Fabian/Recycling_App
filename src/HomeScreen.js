@@ -16,10 +16,6 @@ const HomeScreen = ({navigation}) => {
             </View>
             <View>
                 <Text style={styles.text}>Navigation bar will go at the bottom.</Text>
-                <Button 
-                    title='Go back to log in page (will delete later' 
-                    onPress={() => navigation.navigate('LoginScreen')} 
-                />
             </View>
         </View>
 

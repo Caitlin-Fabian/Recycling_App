@@ -1,32 +1,35 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import LoginScreen from './src/LoginScreen';
 import HomeScreen from './src/HomeScreen';
 
 
-const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{
+      <Tab.Navigator screenOptions={{
         headerShown: false,
         gestureEnabled: false
       }}
       >
-        <Stack.Screen
+        <Tab.Screen
           name="LoginScreen"
           component={LoginScreen}
           options={{ title: 'Welcome' }}
+          // going to have to find out how to make this not show on nav bar
         />
-        <Stack.Screen
+        <Tab.Screen
           name="HomeScreen"
           component={HomeScreen}
           options={{ title: 'Home' }}
         />
-      </Stack.Navigator>
+        {/* if you want to add pages to the bottom nav bar, do it here following format above */}
+      </Tab.Navigator>
     </NavigationContainer>
   );
 }

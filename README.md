@@ -1,14 +1,18 @@
-# Recycling App
+# React Native Template App
 
+## Configuration
 
-## Instructions
+Ensure ./realm.json exists and contains the following properties:
 
-Clone the repo and run npm install to get all of the necessary node modules.
+- **appId:** your Realm app ID, which can be found in the Realm app UI at https://realm.mongodb.com
+- **baseUrl:** the Realm backend URL. Should be https://realm.mongodb.com in most cases.
 
-Navigate to the directory in your terminal and npm start.
+## How to Run the Application for Mac Users:
+- make sure you are in this directory
+- `npm install`
+- `npx pod-install`
+- `npm run ios` (or `npm run android`, if you have an emulator running. Note: If you have not set up your development environment for running react-native android apps, see: https://reactnative.dev/docs/environment-setup)
 
-Download the Expo Go app on your phone.
+## Issues
 
-Scan the QR code in your terminal.
-
-The app will run on your phone now.
+Please report issues with the template at https://github.com/mongodb-university/realm-template-apps/issues/new

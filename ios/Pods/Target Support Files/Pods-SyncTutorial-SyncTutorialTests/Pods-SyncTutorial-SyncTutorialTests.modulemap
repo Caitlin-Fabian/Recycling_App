@@ -1,0 +1,6 @@
+module Pods_SyncTutorial_SyncTutorialTests {
+  umbrella header "Pods-SyncTutorial-SyncTutorialTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

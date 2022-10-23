@@ -1,18 +1,13 @@
-# React Native Template App
-
-## Configuration
-
-Ensure ./realm.json exists and contains the following properties:
-
-- **appId:** your Realm app ID, which can be found in the Realm app UI at https://realm.mongodb.com
-- **baseUrl:** the Realm backend URL. Should be https://realm.mongodb.com in most cases.
+# Recycling App
 
 ## How to Run the Application for Mac Users:
-- make sure you are in this directory
+
+- make sure you are in the Recycling App directory and have done the following.
+- You only have to npm install and npx pod-install the first time you clone the repository
 - `npm install`
 - `npx pod-install`
 - `npm run ios` (or `npm run android`, if you have an emulator running. Note: If you have not set up your development environment for running react-native android apps, see: https://reactnative.dev/docs/environment-setup)
 
 ## Issues
 
-Please report issues with the template at https://github.com/mongodb-university/realm-template-apps/issues/new
+unfortunately, the app does not work on expo-go because realm does not work with the latest update. This will only run on andriod studios or xcode.

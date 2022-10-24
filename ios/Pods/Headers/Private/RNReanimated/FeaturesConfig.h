@@ -1,1 +1,1 @@
-../../../../../node_modules/react-native-reanimated/Common/cpp/headers/Tools/FeaturesConfig.h
+../../../../../node_modules/react-native-reanimated/Common/cpp/Tools/FeaturesConfig.h

@@ -1,5 +1,5 @@
-import React from 'react';
-import {useCallback, useState} from 'react';
+import React from "react";
+import { useCallback, useState } from "react";
 import {
   Text,
   View,
@@ -8,14 +8,14 @@ import {
   TextInput,
   Alert,
   Button,
-} from 'react-native';
-import {BSON} from 'realm';
-import {useUser} from '@realm/react';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
-import Icon from 'react-native-vector-icons/FontAwesome';
+} from "react-native";
+import { BSON } from "realm";
+import { useUser } from "@realm/react";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import Icon from "react-native-vector-icons/FontAwesome";
 
-import {CreateToDoPrompt} from './CreateToDoPrompt';
-import RealmContext from './RealmContext';
+import { CreateToDoPrompt } from "../CreateToDoPrompt";
+import RealmContext from "../RealmContext";
 
 const HomeScreen = () => {
   return (
@@ -38,13 +38,13 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F0F3BD',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#F0F3BD",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
   },
   text: {
-    fontFamily: 'Fredoka One',
+    fontFamily: "Fredoka One",
     fontSize: 30,
   },
 });

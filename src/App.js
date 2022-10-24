@@ -1,19 +1,26 @@
-import React from 'react';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {StyleSheet, Text, View, ActivityIndicator} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import {AppProvider, UserProvider, useUser} from '@realm/react';
+import React from "react";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { AppProvider, UserProvider, useUser } from "@realm/react";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
-import HomeScreen from './HomeScreen';
-import {appId, baseUrl} from '../realm';
-import {LogoutButton} from './LogoutButton';
-import {WelcomeView} from './WelcomeView';
-import {ItemListView} from './ItemListView';
-import RealmContext from './RealmContext';
-const {RealmProvider} = RealmContext;
+import HomeScreen from "./screens/HomeScreen";
+import { appId, baseUrl } from "../realm";
+import { LogoutButton } from "./LogoutButton";
+import { WelcomeView } from "./screens/WelcomeView";
+import { ItemListView } from "./ItemListView";
+import RealmContext from "./RealmContext";
+import { Icon, TabView } from "react-native-elements";
+const { RealmProvider } = RealmContext;
 
 const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
+const homeName = "Home";
+const settingsName = "Settings";
 
 const AppWrapper = () => {
   return (
@@ -24,7 +31,6 @@ const AppWrapper = () => {
     </AppProvider>
   );
 };
-
 const App = () => {
   return (
     <>
@@ -35,7 +41,7 @@ const App = () => {
           initialSubscriptions: {
             update: (subs, realm) => {
               // subscribe to all of the logged in user's to-do items
-              subs.add(realm.objects('Item'), {name: 'ownItems'});
+              subs.add(realm.objects("Item"), { name: "ownItems" });
             },
           },
         }}
@@ -43,12 +49,33 @@ const App = () => {
           <View style={styles.activityContainer}>
             <ActivityIndicator size="large" />
           </View>
-        )}>
+        )}
+      >
         <SafeAreaProvider>
           <NavigationContainer>
-            <Stack.Navigator>
-              <Stack.Screen
-                name="HomeScreen"
+            <Tab.Navigator
+              initialRouteName={homeName}
+              screenOptions={({ route }) => ({
+                tabBarIcon: ({ focused, color, size }) => {
+                  let iconName;
+                  let rn = route.name;
+
+                  if (rn === homeName) {
+                    iconName = focused ? "home" : "home-outline";
+                  } else if (rn === settingsName) {
+                    iconName = focused ? "settings" : "settings-outline";
+                  }
+                  return <Ionicons name={iconName} size={size} color={color} />;
+                },
+              })}
+              tabBarOptions={{
+                inactiveTintColor: "grey",
+                labelStyle: { paddingBottom: 10, fontSize: 10 },
+                style: { height: 50, padding: 10 },
+              }}
+            >
+              <Tab.Screen
+                name={homeName}
                 component={HomeScreen}
                 options={{
                   headerLeft: () => {
@@ -56,13 +83,17 @@ const App = () => {
                   },
                 }}
               />
-            </Stack.Navigator>
+              <Tab.Screen
+                name={settingsName}
+                component={ItemListView}
+                options={{
+                  headerLeft: () => {
+                    return <LogoutButton />;
+                  },
+                }}
+              />
+            </Tab.Navigator>
           </NavigationContainer>
-          <View style={styles.footer}>
-            <Text style={styles.footerText}>
-              Built with the Atlas Device Sync Template
-            </Text>
-          </View>
         </SafeAreaProvider>
       </RealmProvider>
     </>
@@ -72,15 +103,15 @@ const App = () => {
 const styles = StyleSheet.create({
   footerText: {
     fontSize: 10,
-    textAlign: 'center',
+    textAlign: "center",
   },
   footer: {
     margin: 40,
   },
   activityContainer: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: "row",
+    justifyContent: "space-around",
     padding: 10,
   },
 });

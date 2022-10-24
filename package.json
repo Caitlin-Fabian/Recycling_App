@@ -14,8 +14,10 @@
     "generate": "npm run generate:partition-based-sync && npm run generate:flexible-sync"
   },
   "dependencies": {
-    "@react-native-community/masked-view": "^0.1.10",
-    "@react-navigation/native": "^5.9.3",
+    "@react-native-community/masked-view": "^0.1.11",
+    "@react-navigation/bottom-tabs": "^6.4.0",
+    "@react-navigation/material-bottom-tabs": "^6.2.4",
+    "@react-navigation/native": "^5.9.8",
     "@react-navigation/stack": "^5.14.4",
     "@realm/react": "^0.3.2",
     "expo-cli": "^6.0.6",
@@ -24,9 +26,9 @@
     "react-native-elements": "^3.3.2",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-get-random-values": "^1.8.0",
-    "react-native-reanimated": "^2.0.1",
-    "react-native-safe-area-context": "^3.2.0",
-    "react-native-screens": "^3.0.0",
+    "react-native-reanimated": "^2.11.0",
+    "react-native-safe-area-context": "^3.4.1",
+    "react-native-screens": "^3.18.2",
     "react-native-vector-icons": "^8.1.0",
     "realm": "^10.20.0"
   },

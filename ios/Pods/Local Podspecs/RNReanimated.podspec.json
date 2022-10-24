@@ -1,6 +1,6 @@
 {
   "name": "RNReanimated",
-  "version": "2.10.0",
+  "version": "2.11.0",
   "summary": "More powerful alternative to Animated library for React Native.",
   "description": "RNReanimated",
   "homepage": "https://github.com/software-mansion/react-native-reanimated",
@@ -14,12 +14,11 @@
   },
   "source": {
     "git": "https://github.com/software-mansion/react-native-reanimated.git",
-    "tag": "2.10.0"
+    "tag": "2.11.0"
   },
   "source_files": [
     "ios/**/*.{mm,h,m}",
-    "Common/cpp/**/*.cpp",
-    "Common/cpp/headers/**/*.h"
+    "Common/cpp/**/*.{cpp,h}"
   ],
   "preserve_paths": [
     "Common/cpp/hidden_headers/**"
@@ -28,11 +27,10 @@
     "USE_HEADERMAP": "YES",
     "HEADER_SEARCH_PATHS": "\"$(PODS_TARGET_SRCROOT)/ReactCommon\" \"$(PODS_TARGET_SRCROOT)\" \"$(PODS_ROOT)/RCT-Folly\" \"$(PODS_ROOT)/boost\" \"$(PODS_ROOT)/boost-for-react-native\" \"$(PODS_ROOT)/DoubleConversion\" \"$(PODS_ROOT)/Headers/Private/React-Core\" "
   },
-  "compiler_flags": "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DRNVERSION=69 -Wno-comma -Wno-shorten-64-to-32 -Wno-documentation",
+  "compiler_flags": "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -Wno-comma -Wno-shorten-64-to-32 -DREACT_NATIVE_MINOR_VERSION=69 -Wno-comma -Wno-shorten-64-to-32 -Wno-documentation",
   "xcconfig": {
-    "CLANG_CXX_LANGUAGE_STANDARD": "c++14",
-    "HEADER_SEARCH_PATHS": "\"$(PODS_ROOT)/boost\" \"$(PODS_ROOT)/boost-for-react-native\" \"$(PODS_ROOT)/glog\" \"$(PODS_ROOT)/RCT-Folly\" \"${PODS_ROOT}/Headers/Public/React-hermes\" \"${PODS_ROOT}/Headers/Public/hermes-engine\"",
-    "OTHER_CFLAGS": "$(inherited) -DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DRNVERSION=69"
+    "HEADER_SEARCH_PATHS": "\"$(PODS_ROOT)/boost\" \"$(PODS_ROOT)/boost-for-react-native\" \"$(PODS_ROOT)/glog\" \"$(PODS_ROOT)/RCT-Folly\" \"$(PODS_ROOT)/RCT-Folly\" \"${PODS_ROOT}/Headers/Public/React-hermes\" \"${PODS_ROOT}/Headers/Public/hermes-engine\" \"/Users/ca064814/Desktop/Recycling_App/node_modules/react-native/../react-native/ReactCommon\"",
+    "OTHER_CFLAGS": "$(inherited) -DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -Wno-comma -Wno-shorten-64-to-32 -DREACT_NATIVE_MINOR_VERSION=69"
   },
   "requires_arc": true,
   "dependencies": {

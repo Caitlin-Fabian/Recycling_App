@@ -1,44 +1,44 @@
-import React, {useEffect, useState, useMemo} from 'react';
-import {BSON} from 'realm';
-import {useUser} from '@realm/react';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {StyleSheet, Text, View} from 'react-native';
-import {Button, Overlay, ListItem} from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import React, { useEffect, useState, useMemo } from "react";
+import { BSON } from "realm";
+import { useUser } from "@realm/react";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { StyleSheet, Text, View } from "react-native";
+import { Button, Overlay, ListItem } from "react-native-elements";
+import Icon from "react-native-vector-icons/FontAwesome";
 
-import {CreateToDoPrompt} from './CreateToDoPrompt';
-import RealmContext from './RealmContext';
-const {useRealm, useQuery} = RealmContext;
+import { CreateToDoPrompt } from "./CreateToDoPrompt";
+import RealmContext from "./RealmContext";
+const { useRealm, useQuery } = RealmContext;
 
 Icon.loadFont(); // load FontAwesome font
 
 export function ItemListView() {
   const realm = useRealm();
-  const items = useQuery('Item');
+  const items = useQuery("Item");
   const user = useUser();
   const [showNewItemOverlay, setShowNewItemOverlay] = useState(false);
 
   useEffect(() => {
     // initialize the subscriptions
     const updateSubscriptions = async () => {
-      await realm.subscriptions.update(mutableSubs => {
+      await realm.subscriptions.update((mutableSubs) => {
         // subscribe to all of the logged in user's to-do items
         let ownItems = realm
-          .objects('Item')
+          .objects("Item")
           .filtered(`owner_id == "${user.id}"`);
         // use the same name as the initial subscription to update it
-        mutableSubs.add(ownItems, {name: 'ownItems'});
+        mutableSubs.add(ownItems, { name: "ownItems" });
       });
     };
     updateSubscriptions();
   }, [realm, user]);
 
   // createItem() takes in a summary and then creates an Item object with that summary
-  const createItem = ({summary}) => {
+  const createItem = ({ summary }) => {
     // if the realm exists, create an Item
     if (realm) {
       realm.write(() => {
-        realm.create('Item', {
+        realm.create("Item", {
           _id: new BSON.ObjectID(),
           owner_id: user.id,
           summary,
@@ -48,20 +48,20 @@ export function ItemListView() {
   };
 
   // deleteItem() deletes an Item with a particular _id
-  const deleteItem = _id => {
+  const deleteItem = (_id) => {
     // if the realm exists, get the Item with a particular _id and delete it
     if (realm) {
-      const item = realm.objectForPrimaryKey('Item', _id); // search for a realm object with a primary key that is an objectId
+      const item = realm.objectForPrimaryKey("Item", _id); // search for a realm object with a primary key that is an objectId
       realm.write(() => {
         realm.delete(item);
       });
     }
   };
   // toggleItemIsComplete() updates an Item with a particular _id to be 'completed'
-  const toggleItemIsComplete = _id => {
+  const toggleItemIsComplete = (_id) => {
     // if the realm exists, get the Item with a particular _id and update it's 'isCompleted' field
     if (realm) {
-      const item = realm.objectForPrimaryKey('Item', _id); // search for a realm object with a primary key that is an objectId
+      const item = realm.objectForPrimaryKey("Item", _id); // search for a realm object with a primary key that is an objectId
       realm.write(() => {
         item.isComplete = !item.isComplete;
       });
@@ -78,15 +78,16 @@ export function ItemListView() {
         />
         <Overlay
           isVisible={showNewItemOverlay}
-          onBackdropPress={() => setShowNewItemOverlay(false)}>
+          onBackdropPress={() => setShowNewItemOverlay(false)}
+        >
           <CreateToDoPrompt
-            onSubmit={({summary}) => {
+            onSubmit={({ summary }) => {
               setShowNewItemOverlay(false);
-              createItem({summary});
+              createItem({ summary });
             }}
           />
         </Overlay>
-        {items.map(item => (
+        {items.map((item) => (
           <ListItem key={`${item._id}`} bottomDivider topDivider>
             <ListItem.Title style={styles.itemTitle}>
               {item.summary}
@@ -123,13 +124,13 @@ const styles = StyleSheet.create({
   },
   footerText: {
     fontSize: 16,
-    textAlign: 'center',
+    textAlign: "center",
   },
   footer: {
     margin: 40,
   },
   addToDoButton: {
-    backgroundColor: '#00BAD4',
+    backgroundColor: "#00BAD4",
     borderRadius: 4,
     margin: 5,
   },

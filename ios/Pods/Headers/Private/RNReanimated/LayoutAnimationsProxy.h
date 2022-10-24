@@ -1,1 +1,1 @@
-../../../../../node_modules/react-native-reanimated/Common/cpp/headers/LayoutAnimations/LayoutAnimationsProxy.h
+../../../../../node_modules/react-native-reanimated/Common/cpp/LayoutAnimations/LayoutAnimationsProxy.h

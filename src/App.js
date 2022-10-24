@@ -11,21 +11,27 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import HomeScreen from "./screens/HomeScreen";
 import { appId, baseUrl } from "../realm";
 import { LogoutButton } from "./LogoutButton";
-import { WelcomeView } from "./screens/WelcomeView";
+import { LoginScreen } from "./screens/LoginScreen";
 import { ItemListView } from "./ItemListView";
+import ProgressScreen from "./screens/ProgressScreen";
 import RealmContext from "./RealmContext";
 import { Icon, TabView } from "react-native-elements";
+import CameraScreen from "./screens/CameraScreen";
 const { RealmProvider } = RealmContext;
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+
+// Name the screen name here
 const homeName = "Home";
 const settingsName = "Settings";
+const progressName = "Progress";
+const cameraName = "Camera";
 
 const AppWrapper = () => {
   return (
     <AppProvider id={appId} baseUrl={baseUrl}>
-      <UserProvider fallback={WelcomeView}>
+      <UserProvider fallback={LoginScreen}>
         <App />
       </UserProvider>
     </AppProvider>
@@ -60,20 +66,26 @@ const App = () => {
                   let iconName;
                   let rn = route.name;
 
+                  // Add the route name here with else if
                   if (rn === homeName) {
                     iconName = focused ? "home" : "home-outline";
                   } else if (rn === settingsName) {
                     iconName = focused ? "settings" : "settings-outline";
+                  } else if (rn === progressName) {
+                    iconName = focused ? "earth" : "earth-outline";
+                  } else if (rn === cameraName) {
+                    iconName = focused ? "camera" : "camera-outline";
                   }
                   return <Ionicons name={iconName} size={size} color={color} />;
                 },
+                tabBarOptions: {
+                  inactiveTintColor: "grey",
+                  labelStyle: { paddingBottom: 10, fontSize: 10 },
+                  style: { height: 50, padding: 10 },
+                },
               })}
-              tabBarOptions={{
-                inactiveTintColor: "grey",
-                labelStyle: { paddingBottom: 10, fontSize: 10 },
-                style: { height: 50, padding: 10 },
-              }}
             >
+              {/* Add a screen here */}
               <Tab.Screen
                 name={homeName}
                 component={HomeScreen}
@@ -86,6 +98,24 @@ const App = () => {
               <Tab.Screen
                 name={settingsName}
                 component={ItemListView}
+                options={{
+                  headerLeft: () => {
+                    return <LogoutButton />;
+                  },
+                }}
+              />
+              <Tab.Screen
+                name={progressName}
+                component={ProgressScreen}
+                options={{
+                  headerLeft: () => {
+                    return <LogoutButton />;
+                  },
+                }}
+              />
+              <Tab.Screen
+                name={cameraName}
+                component={CameraScreen}
                 options={{
                   headerLeft: () => {
                     return <LogoutButton />;

@@ -8,7 +8,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 
 Icon.loadFont(); // load FontAwesome font
 
-export function WelcomeView({ navigation, route }) {
+export function LoginScreen({ navigation, route }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     fontFamily: "Fredoka One",
   },
   title: {
-    fontSize: 18,
+    fontSize: 30,
     fontFamily: "Fredoka One",
     marginBottom: 100,
   },

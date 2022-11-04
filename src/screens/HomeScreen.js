@@ -25,7 +25,7 @@ const HomeScreen = () => {
       </View>
       <View>
         <Text style={styles.text}>
-          The articles will be here (in the middle)!
+          The articles will go here (in the middle)!
         </Text>
       </View>
     </View>

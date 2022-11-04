@@ -28,9 +28,6 @@ const HomeScreen = () => {
           The articles will be here (in the middle)!
         </Text>
       </View>
-      <View>
-        <Text style={styles.text}>Navigation bar will go at the bottom.</Text>
-      </View>
     </View>
   );
 };

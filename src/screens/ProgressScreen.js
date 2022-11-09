@@ -1,23 +1,20 @@
 import React from "react";
-import { useCallback, useEffect, useState } from "react";
-import {
-  Text,
-  View,
-  Image,
-  StyleSheet,
-  TextInput,
-  Alert,
-  Button,
-} from "react-native";
+import { useEffect, useState } from "react";
+import { Text, View, Image, StyleSheet, Button, Alert } from "react-native";
 import { BSON } from "realm";
 import { useUser, useApp } from "@realm/react";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { Overlay, ListItem } from "react-native-elements";
+import { getQuantity } from "../components/CreateItem";
+import {
+  fetchWaterbottle,
+  waterbottle0,
+  waterbottle1,
+  waterbottle2,
+} from "../components/assistfunctions";
 
 import { CreateItem } from "../components/CreateItem";
-import { CreateToDoPrompt } from "../components/CreateToDoPrompt";
 import RealmContext from "../RealmContext";
-import Icon from "react-native-vector-icons/FontAwesome";
 
 const { useRealm, useQuery } = RealmContext;
 
@@ -26,12 +23,27 @@ const ProgressScreen = () => {
   const items = useQuery("Recycled");
   const user = useUser();
   const [showNewItemOverlay, setShowNewItemOverlay] = useState(false);
-  const app = useApp();
-  const recyclables = realm.objects("Recycled");
-  const plastic = recyclables.filtered("type = 'plastic'");
-  const plasticCount = plastic.length;
-  const recycleCount = recyclables.length;
 
+  const app = useApp();
+  const totalRecyclables = realm.objects("Recycled");
+  const recyclablesPlastic = realm
+    .objects("Recycled")
+    .filtered("type = 'plastic'");
+  const recyclablesPaper = realm.objects("Recycled").filtered("type = 'paper'");
+  const recyclablesMetal = realm.objects("Recycled").filtered("type = 'metal'");
+
+  const [index, setIndex] = useState(0);
+  const [image, setImage] = useState(waterbottle0);
+  const [quantity, setQuantity] = useState("");
+
+  // Callback function that points to the value quantity. This is getting passed to the child component
+  // CreateItem, which is then pointing to another component which sets the value of quantity. It passed the
+  // value up and then sets quantity.
+  const fetchQuantity = (quantity) => {
+    setQuantity(quantity);
+  };
+
+  // This is to update the realm database
   useEffect(() => {
     // initialize the subscriptions
     const updateSubscriptions = async () => {
@@ -47,49 +59,108 @@ const ProgressScreen = () => {
     updateSubscriptions();
   }, [realm, user]);
 
-  // createItem() takes in the type of the item and what it is
+  // createItem() takes in the type of the item and what it is then creates the item in the realm DB
   const createItem = ({ type }) => {
     // if the realm exists, create an Item
     if (realm) {
-      realm.write(() => {
-        realm.create("Recycled", {
-          _id: new BSON.ObjectID(),
-          owner_id: user.id,
-          type,
+      for (var i = 0; i < quantity; i++) {
+        realm.write(() => {
+          realm.create("Recycled", {
+            _id: new BSON.ObjectID(),
+            owner_id: user.id,
+            type,
+          });
         });
+      }
+    }
+  };
+
+  // Deletes all of the DB data
+  const deleteItems = () => {
+    // if the realm exists, get the Item with a particular _id and delete it
+    if (realm) {
+      realm.write(() => {
+        // Delete all objects from the realm.
+        realm.deleteAll();
       });
     }
   };
 
-  console.log(recyclables, "\n");
+  // gets the waterbottle image
+  const getImage = () => {
+    // calling assist function from component file
+    let waterbottle = fetchWaterbottle(index);
+    setImage(waterbottle);
+    if (totalRecyclables.length >= 100) {
+      Alert.alert("YOU REACHED 100!");
+    }
+  };
+
+  const checkCount = () => {
+    console.log("Total count: " + totalRecyclables.length + " Index: " + index);
+    if (totalRecyclables.length >= index * 10) {
+      setIndex(index + 1);
+    }
+  };
+
+  const number = 0;
   return (
     <SafeAreaProvider>
       <View style={styles.container}>
         <View style={styles.container}>
-          <Image
-            source={require("../assets/waterbottle/waterbottle0.png")}
-            style={styles.bottle}
-          ></Image>
-          <Text style={styles.text}>This is the progress screen</Text>
           <Button
-            title="+ ADD TO-DO"
+            title="Add Recyclable"
             buttonStyle={styles.addToDoButton}
-            onPress={() => setShowNewItemOverlay(true)}
-          />
+            onPress={() => {
+              setShowNewItemOverlay(true);
+              checkCount();
+            }}
+          ></Button>
+          {console.log("total count " + totalRecyclables.length)}
+          <View style={styles.counts}>
+            <Text style={styles.cols}>
+              {recyclablesPlastic.length}
+              {"\n"}Plastic
+            </Text>
+            <Text style={styles.cols}>
+              {recyclablesPaper.length}
+              {"\n"}Paper
+            </Text>
+            <Text style={styles.cols}>
+              {recyclablesMetal.length}
+              {"\n"}Metal
+            </Text>
+          </View>
+
           <Overlay
             isVisible={showNewItemOverlay}
             onBackdropPress={() => setShowNewItemOverlay(false)}
           >
             <CreateItem
+              fetchQuantity={fetchQuantity}
               onSubmit={({ type }) => {
                 setShowNewItemOverlay(false);
                 createItem({ type });
+                getImage();
               }}
             />
           </Overlay>
-          <Text>
-            {recycleCount} {plasticCount}
-          </Text>
+          <Image source={image} style={styles.bottle}></Image>
+          <View style={styles.counts}>
+            <Text style={styles.cols}>
+              {totalRecyclables.length}
+              {"\n"}Total Count
+            </Text>
+          </View>
+          <Button
+            title="Delete"
+            buttonStyle={styles.addToDoButton}
+            onPress={() => {
+              deleteItems();
+              setIndex(0);
+              setImage(waterbottle0);
+            }}
+          />
         </View>
       </View>
     </SafeAreaProvider>
@@ -104,13 +175,20 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  text: {
-    fontFamily: "Fredoka One",
-    fontSize: 30,
-  },
   bottle: {
     width: 150,
     height: 380,
+  },
+  counts: {
+    justifyContent: "space-between",
+    flexDirection: "row",
+  },
+  cols: {
+    fontFamily: "Fredoka One",
+    width: 100,
+    marginTop: 10,
+    marginBottom: 10,
+    textAlign: "center",
   },
 });
 

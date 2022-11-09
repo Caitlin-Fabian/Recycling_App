@@ -17,6 +17,7 @@ import ProgressScreen from "./screens/ProgressScreen";
 import RealmContext from "./RealmContext";
 import { Icon, TabView } from "react-native-elements";
 import CameraScreen from "./screens/CameraScreen";
+import { PostingScreen } from "./screens/PostingScreen";
 const { RealmProvider } = RealmContext;
 
 const Stack = createStackNavigator();
@@ -27,6 +28,7 @@ const homeName = "Home";
 const settingsName = "Settings";
 const progressName = "Progress";
 const cameraName = "Camera";
+const postName = "Post";
 
 const AppWrapper = () => {
   return (
@@ -75,6 +77,8 @@ const App = () => {
                     iconName = focused ? "earth" : "earth-outline";
                   } else if (rn === cameraName) {
                     iconName = focused ? "camera" : "camera-outline";
+                  } else if (rn === postName) {
+                    iconName = focused ? "add" : "add-circle-outline";
                   }
                   return <Ionicons name={iconName} size={size} color={color} />;
                 },
@@ -116,6 +120,15 @@ const App = () => {
               <Tab.Screen
                 name={cameraName}
                 component={CameraScreen}
+                options={{
+                  headerLeft: () => {
+                    return <LogoutButton />;
+                  },
+                }}
+              />
+              <Tab.Screen
+                name={postName}
+                component={PostingScreen}
                 options={{
                   headerLeft: () => {
                     return <LogoutButton />;

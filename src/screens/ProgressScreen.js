@@ -107,51 +107,7 @@ const ProgressScreen = () => {
   return (
     <SafeAreaProvider>
       <View style={styles.container}>
-        <View style={styles.container}>
-          <Button
-            title="Add Recyclable"
-            buttonStyle={styles.addToDoButton}
-            onPress={() => {
-              setShowNewItemOverlay(true);
-              checkCount();
-            }}
-          ></Button>
-          {console.log("total count " + totalRecyclables.length)}
-          <View style={styles.counts}>
-            <Text style={styles.cols}>
-              {recyclablesPlastic.length}
-              {"\n"}Plastic
-            </Text>
-            <Text style={styles.cols}>
-              {recyclablesPaper.length}
-              {"\n"}Paper
-            </Text>
-            <Text style={styles.cols}>
-              {recyclablesMetal.length}
-              {"\n"}Metal
-            </Text>
-          </View>
-
-          <Overlay
-            isVisible={showNewItemOverlay}
-            onBackdropPress={() => setShowNewItemOverlay(false)}
-          >
-            <CreateItem
-              fetchQuantity={fetchQuantity}
-              onSubmit={({ type }) => {
-                setShowNewItemOverlay(false);
-                createItem({ type });
-                getImage();
-              }}
-            />
-          </Overlay>
-          <Image source={image} style={styles.bottle}></Image>
-          <View style={styles.counts}>
-            <Text style={styles.cols}>
-              {totalRecyclables.length}
-              {"\n"}Total Count
-            </Text>
-          </View>
+        <View style={styles.buttonContainer}>
           <Button
             title="Delete"
             buttonStyle={styles.addToDoButton}
@@ -161,6 +117,50 @@ const ProgressScreen = () => {
               setImage(waterbottle0);
             }}
           />
+          <Button
+            title="Add Recyclable"
+            style={styles.addItem}
+            onPress={() => {
+              setShowNewItemOverlay(true);
+              checkCount();
+            }}
+          ></Button>
+        </View>
+        {console.log("total count " + totalRecyclables.length)}
+        <View style={styles.counts}>
+          <Text style={styles.cols}>
+            {recyclablesPlastic.length}
+            {"\n"}Plastic
+          </Text>
+          <Text style={styles.cols}>
+            {recyclablesPaper.length}
+            {"\n"}Paper
+          </Text>
+          <Text style={styles.cols}>
+            {recyclablesMetal.length}
+            {"\n"}Metal
+          </Text>
+        </View>
+
+        <Overlay
+          isVisible={showNewItemOverlay}
+          onBackdropPress={() => setShowNewItemOverlay(false)}
+        >
+          <CreateItem
+            fetchQuantity={fetchQuantity}
+            onSubmit={({ type }) => {
+              setShowNewItemOverlay(false);
+              createItem({ type });
+              getImage();
+            }}
+          />
+        </Overlay>
+        <Image source={image} style={styles.bottle}></Image>
+        <View style={styles.counts}>
+          <Text style={styles.cols}>
+            {totalRecyclables.length}
+            {"\n"}Total Count
+          </Text>
         </View>
       </View>
     </SafeAreaProvider>
@@ -172,7 +172,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#F0F3BD",
     flexDirection: "column",
-    justifyContent: "center",
     alignItems: "center",
   },
   bottle: {
@@ -186,9 +185,16 @@ const styles = StyleSheet.create({
   cols: {
     fontFamily: "Fredoka One",
     width: 100,
-    marginTop: 10,
-    marginBottom: 10,
+    marginTop: 45,
+    marginBottom: 20,
     textAlign: "center",
+  },
+  buttonContainer: {
+    display: "flex",
+    alignSelf: "flex-end",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignSelf: "stretch",
   },
 });
 

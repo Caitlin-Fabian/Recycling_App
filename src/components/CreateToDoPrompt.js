@@ -1,14 +1,17 @@
-import React, {useState} from 'react';
-import {StyleSheet, View} from 'react-native';
-import {Text, Input, Button} from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome';
-
-Icon.loadFont(); // load FontFamily font
+import React, { useState } from "react";
+import { StyleSheet, View } from "react-native";
+import { Text, Input, Button } from "react-native-elements";
+import SelectList from "react-native-dropdown-select-list";
 
 export function CreateToDoPrompt(props) {
-  const {onSubmit} = props;
+  const { onSubmit } = props;
   const [summary, setSummary] = useState(null);
 
+  const selection = [
+    { key: "plastic", value: "plastic" },
+    { key: "paper", value: "paper" },
+    { key: "metal", value: "metal" },
+  ];
   return (
     <View style={styles.modalWrapper}>
       <Text h4 style={styles.addItemTitle}>
@@ -18,7 +21,12 @@ export function CreateToDoPrompt(props) {
       <Button
         title="Save"
         buttonStyle={styles.saveButton}
-        onPress={() => onSubmit({summary})}
+        onPress={() => onSubmit({ summary })}
+      />
+      <SelectList
+        data={selection}
+        setSelected={setSummary}
+        boxStyles={{ marginHorizontal: 50 }}
       />
     </View>
   );
@@ -29,7 +37,7 @@ const styles = StyleSheet.create({
     width: 300,
     minHeight: 400,
     borderRadius: 4,
-    alignItems: 'center',
+    alignItems: "center",
   },
   addItemTitle: {
     margin: 20,

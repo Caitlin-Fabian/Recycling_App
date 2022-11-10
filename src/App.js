@@ -10,7 +10,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 
 import HomeScreen from "./screens/HomeScreen";
 import { appId, baseUrl } from "../realm";
-import { LogoutButton } from "./LogoutButton";
+import { LogoutButton } from "./components/LogoutButton";
 import { LoginScreen } from "./screens/LoginScreen";
 import { ItemListView } from "./ItemListView";
 import ProgressScreen from "./screens/ProgressScreen";

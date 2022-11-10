@@ -14,7 +14,7 @@ import { useUser } from "@realm/react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-import { CreateToDoPrompt } from "../CreateToDoPrompt";
+import { CreateToDoPrompt } from "../components/CreateToDoPrompt";
 import RealmContext from "../RealmContext";
 
 const HomeScreen = () => {

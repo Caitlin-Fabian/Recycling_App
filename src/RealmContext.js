@@ -1,6 +1,7 @@
 import { createRealmContext } from "@realm/react";
-import { Item } from "./ItemSchema";
+import { Recycled } from "./schema/RecycledSchema";
+import { Item } from "./schema/ItemSchema";
 
 export default createRealmContext({
-  schema: [Item.schema],
+  schema: [Item.schema, Recycled.schema],
 });

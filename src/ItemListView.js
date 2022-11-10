@@ -6,7 +6,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { Button, Overlay, ListItem } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-import { CreateToDoPrompt } from "./CreateToDoPrompt";
+import { CreateToDoPrompt } from "./components/CreateToDoPrompt";
 import RealmContext from "./RealmContext";
 const { useRealm, useQuery } = RealmContext;
 

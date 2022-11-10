@@ -619,7 +619,7 @@ SPEC CHECKSUMS:
   RealmJS: 50ed14de48cf542be1ebad3bc75587ce59bc8571
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
-  RNReanimated: 1c09c96a92dce8bce7ea15f62b814930bbd3deca
+  RNReanimated: fa8c834afa3f5c3a7dde3da80e214faf91ff3d7e
   RNScreens: 34cc502acf1b916c582c60003dc3089fa01dc66d
   RNVectorIcons: 31cebfcf94e8cf8686eb5303ae0357da64d7a5a4
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608

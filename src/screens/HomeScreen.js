@@ -1,34 +1,46 @@
 import React from "react";
-import { useCallback, useState } from "react";
-import {
-  Text,
-  View,
-  Image,
-  StyleSheet,
-  TextInput,
-  Alert,
-  Button,
-} from "react-native";
-import { BSON } from "realm";
-import { useUser } from "@realm/react";
+import { Text, View, Image, StyleSheet, ScrollView, TextInput, Alert, Button } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/FontAwesome";
-
-import { CreateToDoPrompt } from "../components/CreateToDoPrompt";
-import RealmContext from "../RealmContext";
+import Article from "../components/Articles";
 
 const HomeScreen = () => {
+  const data = [
+    {
+      // need to find 5 articles and photos that correspond to them
+      description: "This article from Stanford University answers multiple questions about recycling, why it's important, and it's impact.",
+      link: "https://lbre.stanford.edu/pssistanford-recycling/frequently-asked-questions/frequently-asked-questions-benefits-recycling",
+    },
+    {
+      description: "Learn about easy ways to recycle everyday items around you with this article.",
+      link: "https://www.epa.gov/recycle/how-do-i-recycle-common-recyclables",
+    },
+    {
+      description: "Explore the meanings of the different numbers on recyclable plastic items!",
+      link: "https://www.ebpsupply.com/blog/plastic-recycling-codes-types-explanation",
+    },
+    {
+      description: "This article explains the positive impacts that recycling has on the environment.",
+      link: "https://biofriendlyplanet.com/nature/environment/the-positive-effect-of-recycling-on-the-environment/",
+    },
+    {
+      description: "Read about unique ideas for recycling various objects!",
+      link: "https://sassytownhouseliving.com/16-creative-ideas-recycling-common-household-items/",
+    }
+  ];
+
+  const image1 = "../pictures/pexels-photo-356079.jpeg";
+
   return (
-    <View style={styles.container}>
-      <View>
-        <Text style={styles.text}>The progress bar will be at the top!</Text>
+    <SafeAreaProvider>
+      <View style={styles.container}>
+        <ScrollView>
+            {data.map((data) => {
+              return <Article description = {data.description} link = {data.link}></Article>;
+            })}
+          </ScrollView>
       </View>
-      <View>
-        <Text style={styles.text}>
-          The articles will go here (in the middle)!
-        </Text>
-      </View>
-    </View>
+    </SafeAreaProvider>
   );
 };
 

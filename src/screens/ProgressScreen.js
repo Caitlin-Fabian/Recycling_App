@@ -6,12 +6,7 @@ import { useUser, useApp } from "@realm/react";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { Overlay, ListItem } from "react-native-elements";
 import { getQuantity } from "../components/CreateItem";
-import {
-  fetchWaterbottle,
-  waterbottle0,
-  waterbottle1,
-  waterbottle2,
-} from "../components/assistfunctions";
+import { fetchWaterbottle, waterbottle0 } from "../components/assistfunctions";
 
 import { CreateItem } from "../components/CreateItem";
 import RealmContext from "../RealmContext";
@@ -22,6 +17,9 @@ const ProgressScreen = () => {
   const realm = useRealm();
   const items = useQuery("Recycled");
   const user = useUser();
+  {
+    console.log(user);
+  }
   const [showNewItemOverlay, setShowNewItemOverlay] = useState(false);
 
   const app = useApp();
@@ -110,7 +108,6 @@ const ProgressScreen = () => {
         <View style={styles.buttonContainer}>
           <Button
             title="Delete"
-            buttonStyle={styles.addToDoButton}
             onPress={() => {
               deleteItems();
               setIndex(0);
@@ -119,14 +116,12 @@ const ProgressScreen = () => {
           />
           <Button
             title="Add Recyclable"
-            style={styles.addItem}
             onPress={() => {
               setShowNewItemOverlay(true);
               checkCount();
             }}
           ></Button>
         </View>
-        {console.log("total count " + totalRecyclables.length)}
         <View style={styles.counts}>
           <Text style={styles.cols}>
             {recyclablesPlastic.length}
@@ -195,6 +190,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignSelf: "stretch",
+    marginTop: 50,
   },
 });
 

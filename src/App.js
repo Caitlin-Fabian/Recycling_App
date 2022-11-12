@@ -20,12 +20,10 @@ import CameraScreen from "./screens/CameraScreen";
 import FeedScreen from "./screens/FeedScreen";
 const { RealmProvider } = RealmContext;
 
-const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 // Name the screen name here
 const homeName = "Home";
-const settingsName = "Settings";
 const progressName = "Progress";
 const cameraName = "Camera";
 const feedName = "Feed";
@@ -65,6 +63,7 @@ const App = () => {
             <Tab.Navigator
               initialRouteName={homeName}
               screenOptions={({ route }) => ({
+                headerShown: false,
                 tabBarIcon: ({ focused, color, size }) => {
                   let iconName;
                   let rn = route.name;
@@ -127,15 +126,7 @@ const App = () => {
                   },
                 }}
               />
-              <Tab.Screen
-                name={profileName}
-                component={ProfileScreen}
-                options={{
-                  headerLeft: () => {
-                    return <LogoutButton />;
-                  },
-                }}
-              />
+              <Tab.Screen name={profileName} component={ProfileScreen} />
             </Tab.Navigator>
           </NavigationContainer>
         </SafeAreaProvider>

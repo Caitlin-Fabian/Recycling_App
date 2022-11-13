@@ -17,9 +17,7 @@ const ProgressScreen = () => {
   const realm = useRealm();
   const items = useQuery("Recycled");
   const user = useUser();
-  {
-    console.log(user);
-  }
+
   const [showNewItemOverlay, setShowNewItemOverlay] = useState(false);
 
   const app = useApp();

@@ -1,6 +1,6 @@
 import React from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
+import { StyleSheet, Text, View, ActivityIndicator, Button } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { AppProvider, UserProvider, useUser } from "@realm/react";
@@ -12,6 +12,7 @@ import HomeScreen from "./screens/HomeScreen";
 import { appId, baseUrl } from "../realm";
 import { LogoutButton } from "./components/LogoutButton";
 import { LoginScreen } from "./screens/LoginScreen";
+
 import { ItemListView } from "./ItemListView";
 import ProgressScreen from "./screens/ProgressScreen";
 import RealmContext from "./RealmContext";
@@ -130,6 +131,16 @@ const App = () => {
 								options={{
 									headerLeft: () => {
 										return <LogoutButton />;
+									},
+									headerRight: () => {
+										return (
+											<Button 
+												title="Add Post"
+												onPress={() => {
+													''
+												}}
+											/>
+										);
 									},
 								}}
 							/>

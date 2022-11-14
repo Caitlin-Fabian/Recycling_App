@@ -10,25 +10,29 @@ import RealmContext from "../RealmContext";
 const { useRealm, useQuery } = RealmContext;
 
 export function PostingScreen(props) {
+  const newDate = new Date();
+
   const { onSubmit } = props;
   const { onPressBack } = props;
-  const [caption, setCaption] = useState("");
+  const [description, setDescription] = useState("");
   const [image, setImage] = useState("../assets/profile.jpg");
   const [location, setLocation] = useState("");
-  const [date, setDate] = useState("");
+  const [date_published, setDate] = useState(newDate);
+  const [username, setUser] = useState("");
+
   const realm = useRealm();
   const user = useUser();
 
-  function getDate() {
-    let current = new Date();
-    let dateString = `${current.getDate()}/${
-      current.getMonth() + 1
-    }/${current.getFullYear()}`;
-    setDate(dateString);
-  }
-  //Create the post
-  const onPressShare = async () => {};
+  // Current username
+  useEffect(() => {
+    if (realm) {
+      let name = realm.objects("User");
+      setUser(name[0].username);
+      console.log(username);
+    }
+  }, []);
 
+  // Updating realm subscriptions
   useEffect(() => {
     // initialize the subscriptions
     const updateSubscriptions = async () => {
@@ -44,6 +48,7 @@ export function PostingScreen(props) {
     updateSubscriptions();
   }, [realm, user]);
 
+  // Could put this into one above later but lazy RN and dont want to break it
   useEffect(() => {
     // initialize the subscriptions
     const updateSubscriptions = async () => {
@@ -59,13 +64,6 @@ export function PostingScreen(props) {
     updateSubscriptions();
   }, [realm, user]);
 
-  // function getUserName() {
-  //   if (realm) {
-  //     let name = realm.objects("User");
-  //     console.log(name);
-  //   }
-  // }
-
   return (
     <View style={styles.viewWrapper}>
       <TouchableOpacity onPress={() => onPressBack(false)}>
@@ -74,7 +72,7 @@ export function PostingScreen(props) {
           style={styles.backButton}
         ></Ionicons>
       </TouchableOpacity>
-      {/* {getUserName()} */}
+
       {/* Start of main container */}
       <View style={styles.container}>
         <Image
@@ -89,13 +87,16 @@ export function PostingScreen(props) {
         />
         <Input
           placeholder="Add a caption!"
-          onChangeText={setCaption}
+          onChangeText={setDescription}
           autoCapitalize="none"
         />
+
         <Button
           title="Save"
           buttonStyle={styles.saveButton}
-          onPress={() => onSubmit({ location, caption, date, image })}
+          onPress={() =>
+            onSubmit({ location, description, date_published, image, username })
+          }
         />
       </View>
     </View>

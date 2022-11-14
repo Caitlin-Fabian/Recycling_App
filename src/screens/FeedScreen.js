@@ -2,18 +2,23 @@ import { Text, View, StyleSheet, Dimensions } from "react-native";
 import React, { useEffect, Component, useState } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Post from "../components/Post";
-import RealmContext from "../RealmContext";
 import { useUser, useApp } from "@realm/react";
 import { TouchableOpacity, ScrollView } from "react-native-gesture-handler";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { Overlay } from "react-native-elements";
+import { Overlay, ListItem, Button } from "react-native-elements";
 import { PostingScreen } from "./PostingScreen";
+import Icon from "react-native-vector-icons/FontAwesome";
+
+// Realm specific
+import { BSON } from "realm";
+import RealmContext from "../RealmContext";
 
 const { useRealm, useQuery } = RealmContext;
 
 const FeedScreen = () => {
   const realm = useRealm();
   const user = useUser();
+  const posts = useQuery("Post");
   const [showNewItemOverlay, setShowNewItemOverlay] = useState(false);
 
   useEffect(() => {
@@ -49,6 +54,29 @@ const FeedScreen = () => {
     },
   ];
 
+  const createPost = ({
+    location,
+    description,
+    date_published,
+    image,
+    username,
+  }) => {
+    // if the realm exists, create an Item
+    if (realm) {
+      realm.write(() => {
+        realm.create("Post", {
+          _id: new BSON.ObjectID(),
+          owner_id: user.id,
+          location,
+          description,
+          date_published,
+          image,
+          username,
+        });
+      });
+    }
+  };
+
   return (
     <SafeAreaProvider style={styles.container}>
       {/* <View style={styles.container}>
@@ -75,15 +103,37 @@ const FeedScreen = () => {
         onBackdropPress={() => setShowNewItemOverlay(false)}
       >
         <PostingScreen
-          onSubmit={({ summary }) => {
+          onSubmit={({
+            location,
+            description,
+            date_published,
+            image,
+            username,
+          }) => {
             setShowNewItemOverlay(false);
-            createItem({ summary });
+            createPost({
+              location,
+              description,
+              date_published,
+              image,
+              username,
+            });
           }}
           onPressBack={({ showNewItemOverlay }) => {
             setShowNewItemOverlay(false);
           }}
         ></PostingScreen>
       </Overlay>
+
+      <View>
+        {posts.map((post) => {
+          return (
+            <View>
+              <Post username={post.username} />
+            </View>
+          );
+        })}
+      </View>
     </SafeAreaProvider>
   );
 };
@@ -104,6 +154,11 @@ const styles = StyleSheet.create({
     height: Dimensions.get("window").height,
     justifyContent: "center",
   },
+  profile: {
+    width: 30,
+    height: 30,
+    marginRight: 8,
+  },
   buttonContainer: {
     display: "flex",
     alignSelf: "flex-end",
@@ -111,10 +166,21 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignSelf: "flex-end",
   },
+  Txt242: {
+    fontSize: 19,
+    fontFamily: "Fredoka One",
+    fontWeight: "700",
+    color: "rgba(0,0,0,1)",
+    width: 273,
+    height: 22,
+  },
   addPostButton: {
     marginTop: 70,
     marginRight: 20,
     fontSize: 40,
+  },
+  itemTitle: {
+    flex: 1,
   },
 });
 

@@ -27,14 +27,11 @@ const ProfileScreen = () => {
   const realm = useRealm();
   const user = useUser();
 
-  console.log(place);
-  const [name, setName] = useState(place[0].username);
+  const customdata = user.profile.email;
+  const userName = customdata.slice(0, customdata.indexOf("@"));
+  const place = realm.objects("User");
 
-  // first sets user's username to their email name
   if (place.length == 0) {
-    let customdata = user.profile.email;
-    let userName = customdata.slice(0, customdata.indexOf("@"));
-    let place = realm.objects("User");
     realm.write(() => {
       realm.create(
         "User",
@@ -48,6 +45,8 @@ const ProfileScreen = () => {
       );
     });
   }
+
+  const [name, setName] = useState(place[0].username);
 
   // This is a function that is specific to realm. This is required to update the User information from the realm instance
   useEffect(() => {

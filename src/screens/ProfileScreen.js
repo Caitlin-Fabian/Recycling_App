@@ -26,27 +26,10 @@ const ProfileScreen = () => {
   const [showNewItemOverlay, setShowNewItemOverlay] = useState(false);
   const realm = useRealm();
   const user = useUser();
-  const customdata = user.profile.email;
-  const userName = customdata.slice(0, customdata.indexOf("@"));
+
   const place = realm.objects("User");
 
-  console.log(place);
   const [name, setName] = useState(place[0].username);
-
-  if (place.length == 0) {
-    realm.write(() => {
-      realm.create(
-        "User",
-        {
-          _id: user.id,
-          username: userName,
-          status: "online",
-          owner_id: user.id,
-        },
-        "modified"
-      );
-    });
-  }
 
   // This is a function that is specific to realm. This is required to update the User information from the realm instance
   useEffect(() => {
@@ -98,46 +81,47 @@ const ProfileScreen = () => {
             style={styles.editButton}
           ></Ionicons>
         </TouchableOpacity>
-
-        {/* This is where the overlay starts */}
-        <Overlay
-          isVisible={showNewItemOverlay}
-          onBackdropPress={() => setShowNewItemOverlay(false)}
-        >
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity
-              onPress={() => {
-                setShowNewItemOverlay(false);
-              }}
-            >
-              <Ionicons
-                name="caret-back-outline"
-                style={styles.backButton}
-              ></Ionicons>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.editContianer}>
-            <Input
-              placeholder="UserName"
-              onChangeText={setName}
-              autoCapitalize="none"
-            ></Input>
-
-            <Button
-              title="Submit"
-              onPress={() => {
-                updateUser(name);
-                setShowNewItemOverlay(false);
-              }}
-            ></Button>
-          </View>
-        </Overlay>
-
-        {/* This is where the overlay ends */}
-
-        {/* Returns to regular view */}
       </View>
+
+      {/* This is where the overlay starts */}
+      <Overlay
+        isVisible={showNewItemOverlay}
+        onBackdropPress={() => setShowNewItemOverlay(false)}
+      >
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            onPress={() => {
+              setShowNewItemOverlay(false);
+            }}
+          >
+            <Ionicons
+              name="caret-back-outline"
+              style={styles.backButton}
+            ></Ionicons>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.editContianer}>
+          <Input
+            placeholder="UserName"
+            onChangeText={setName}
+            autoCapitalize="none"
+          ></Input>
+
+          <Button
+            title="Submit"
+            onPress={() => {
+              updateUser(name);
+              setShowNewItemOverlay(false);
+            }}
+          ></Button>
+        </View>
+      </Overlay>
+
+      {/* This is where the overlay ends */}
+
+      {/* Returns to regular view */}
+
       <View style={{ alignSelf: "center" }}>
         <View style={styles.infoContainer}>
           <Text style={[styles.text, { fontWeight: "200", fontSize: 36 }]}>
@@ -208,8 +192,6 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    height: undefined,
-    width: undefined,
   },
   profileImage: {
     width: 200,
@@ -256,13 +238,12 @@ const styles = StyleSheet.create({
     fontSize: 40,
   },
   editContianer: {
-    width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height,
+    width: Dimensions.get("window").width - 80,
+    height: Dimensions.get("window").height - 200,
     justifyContent: "center",
   },
   backButton: {
     color: "#52575D",
-    marginTop: 100,
     fontSize: 40,
   },
 });

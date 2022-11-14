@@ -12,6 +12,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 // Realm specific
 import { BSON } from "realm";
 import RealmContext from "../RealmContext";
+import { loadOptions } from "@babel/core";
 
 const { useRealm, useQuery } = RealmContext;
 
@@ -124,12 +125,18 @@ const FeedScreen = () => {
           }}
         ></PostingScreen>
       </Overlay>
-
+      {console.log(realm.objects("Post"))}
       <View>
         {posts.map((post) => {
           return (
             <View>
-              <Post username={post.username} />
+              <Post
+                username={post.username}
+                image={post.image}
+                location={post.location}
+                date={post.date}
+                description={post.description}
+              />
             </View>
           );
         })}

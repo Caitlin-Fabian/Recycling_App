@@ -6,12 +6,7 @@ export default function Post({ username, image, location, date, description }) {
     <View style={styles.Post}>
       <View style={styles.Group534}>
         <View style={styles.User}>
-          <Image
-            style={styles.profile}
-            source={{
-              uri: "https://firebasestorage.googleapis.com/v0/b/unify-bc2ad.appspot.com/o/1pe92a9a0gm-542%3A9?alt=media&token=baab46c0-ed66-4109-901a-650bb4360ece",
-            }}
-          />
+          <Image style={styles.profile} source={image} />
           <Text style={styles.Txt242}>{username}</Text>
         </View>
         <Image
@@ -22,6 +17,7 @@ export default function Post({ username, image, location, date, description }) {
             }
           }
         />
+        <Text>{description}</Text>
         <View style={styles.BommomPart}>
           <View style={styles.Comment}>
             <Text style={styles.Txt399}>Comment...</Text>

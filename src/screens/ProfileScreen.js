@@ -27,24 +27,7 @@ const ProfileScreen = () => {
   const realm = useRealm();
   const user = useUser();
 
-  const customdata = user.profile.email;
-  const userName = customdata.slice(0, customdata.indexOf("@"));
   const place = realm.objects("User");
-
-  if (place.length == 0) {
-    realm.write(() => {
-      realm.create(
-        "User",
-        {
-          _id: user.id,
-          username: userName,
-          status: "online",
-          owner_id: user.id,
-        },
-        "modified"
-      );
-    });
-  }
 
   const [name, setName] = useState(place[0].username);
 
@@ -209,8 +192,6 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    height: undefined,
-    width: undefined,
   },
   profileImage: {
     width: 200,
@@ -256,14 +237,13 @@ const styles = StyleSheet.create({
     fontFamily: "Fredoka One",
     fontSize: 40,
   },
-  // editContianer: {
-  //   width: Dimensions.get("window").width - 100,
-  //   height: Dimensions.get("window").height - 200,
-  //   justifyContent: "center",
-  // },
+  editContianer: {
+    width: Dimensions.get("window").width - 80,
+    height: Dimensions.get("window").height - 200,
+    justifyContent: "center",
+  },
   backButton: {
     color: "#52575D",
-    marginTop: 100,
     fontSize: 40,
   },
 });

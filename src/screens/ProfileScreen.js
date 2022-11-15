@@ -202,7 +202,15 @@ const ProfileScreen = () => {
                 margin: 15,
                 backgroundColor: "black",
               }}
-            ></View>
+            >
+              <Image
+                source={require("../assets/pictures/environment.jpeg")}
+                style={{
+                  width: 80,
+                  height: 80,
+                }}
+              ></Image>
+            </View>
           ))}
         </View>
       </View>

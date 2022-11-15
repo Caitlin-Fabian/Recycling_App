@@ -12,10 +12,10 @@ import Icon from "react-native-vector-icons/FontAwesome";
 // Realm specific
 import { BSON } from "realm";
 import RealmContext from "../RealmContext";
-
 const { useRealm, useQuery } = RealmContext;
 
 const FeedScreen = () => {
+  const app = useApp();
   const realm = useRealm();
   const user = useUser();
   const posts = useQuery("Post");
@@ -110,15 +110,13 @@ const FeedScreen = () => {
 
         {posts.map((post) => {
           return (
-            <View>
-              <Post
-                username={post.username}
-                image={post.image}
-                location={post.location}
-                date={post.date}
-                description={post.description}
-              />
-            </View>
+            <Post
+              username={post.username}
+              image={post.image}
+              location={post.location}
+              date={post.date}
+              description={post.description}
+            />
           );
         })}
       </ScrollView>
@@ -164,7 +162,7 @@ const styles = StyleSheet.create({
   },
   addPostButton: {
     marginTop: 40,
-    marginRight: 20,
+    marginRight: 40,
     fontSize: 40,
   },
   itemTitle: {

@@ -9,25 +9,13 @@ export default function Post({ username, image, location, date, description }) {
           <Image style={styles.profile} source={image} />
           <Text style={styles.Txt242}>{username}</Text>
         </View>
-        <Image
-          style={styles.Image}
-          source={
-            {
-              // uri: props.imagesrc,
-            }
-          }
-        />
+        <Image style={styles.Image} source={image.image} />
         <Text>{description}</Text>
         <View style={styles.BommomPart}>
           <View style={styles.Comment}>
             <Text style={styles.Txt399}>Comment...</Text>
           </View>
-          <Image
-            style={styles.IconHeartOutline}
-            source={{
-              uri: "https://firebasestorage.googleapis.com/v0/b/unify-bc2ad.appspot.com/o/1pe92a9a0gm-447%3A11?alt=media&token=a3ff24cc-c2ef-4f18-b1c6-0699b5a81296",
-            }}
-          />
+          <Image style={styles.IconHeartOutline} source={image} />
         </View>
       </View>
     </View>

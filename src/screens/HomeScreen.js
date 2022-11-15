@@ -11,7 +11,7 @@ import {
 import { BSON, User } from "realm";
 import { useUser } from "@realm/react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import Icon from "react-native-vector-icons/FontAwesome";
+import { ScrollView } from "react-native-gesture-handler";
 
 import { CreateToDoPrompt } from "../components/CreateToDoPrompt";
 import RealmContext from "../RealmContext";
@@ -61,7 +61,6 @@ const HomeScreen = () => {
       }
     };
     getUsername();
-    console.log(place);
   }, []);
 
   return (
@@ -200,6 +199,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     paddingBottom: 25,
     paddingTop: 8,
+    marginTop: 40,
   },
   Picture: {
     height: 100,

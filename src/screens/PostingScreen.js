@@ -15,7 +15,7 @@ export function PostingScreen(props) {
   const { onSubmit } = props;
   const { onPressBack } = props;
   const [description, setDescription] = useState("");
-  const [image, setImage] = useState("../assets/profile.jpg");
+  const [image, setImage] = useState('require("../assets/profile.jpg")');
   const [location, setLocation] = useState("");
   const [date_published, setDate] = useState(newDate);
   const [username, setUser] = useState("");

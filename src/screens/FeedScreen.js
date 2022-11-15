@@ -13,8 +13,6 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { BSON } from "realm";
 import RealmContext from "../RealmContext";
 
-import { loadOptions } from "@babel/core";
-
 const { useRealm, useQuery } = RealmContext;
 
 const FeedScreen = () => {
@@ -37,24 +35,6 @@ const FeedScreen = () => {
     };
     updateSubscriptions();
   }, [realm, user]);
-
-  const data = [
-    {
-      username: "F",
-      imagesrc:
-        "https://tg-cdn.azureedge.net/sites/default/files/images/paragraph/italrb/easy_guide_grass.jpg",
-    },
-    {
-      username: "D",
-      imagesrc:
-        "https://upload.wikimedia.org/wikipedia/commons/3/32/Empty_beer_bottles_on_grass.jpg",
-    },
-    {
-      username: "Zack",
-      imagesrc:
-        "https://upload.wikimedia.org/wikipedia/commons/3/32/Empty_beer_bottles_on_grass.jpg",
-    },
-  ];
 
   const createPost = ({
     location,
@@ -127,22 +107,20 @@ const FeedScreen = () => {
             }}
           ></PostingScreen>
         </Overlay>
-        {console.log(realm.objects("Post"))}
-        <View>
-          {posts.map((post) => {
-            return (
-              <View>
-                <Post
-                  username={post.username}
-                  image={post.image}
-                  location={post.location}
-                  date={post.date}
-                  description={post.description}
-                />
-              </View>
-            );
-          })}
-        </View>
+
+        {posts.map((post) => {
+          return (
+            <View>
+              <Post
+                username={post.username}
+                image={post.image}
+                location={post.location}
+                date={post.date}
+                description={post.description}
+              />
+            </View>
+          );
+        })}
       </ScrollView>
     </SafeAreaProvider>
   );

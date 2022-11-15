@@ -1,5 +1,5 @@
 import React from "react";
-import { useCallback, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -9,26 +9,30 @@ import {
   Button,
 } from "react-native";
 import { Input } from "react-native-elements";
-import { BSON } from "realm";
+
 import { useUser } from "@realm/react";
-import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import RealmContext from "../RealmContext";
 import { LogoutButton } from "../components/LogoutButton";
 
 import { SafeAreaView } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity, ScrollView } from "react-native-gesture-handler";
 import { Overlay } from "react-native-elements";
+import NewImage from "../components/NewImage";
 const { useRealm, useQuery } = RealmContext;
 
 const ProfileScreen = () => {
   const [showNewItemOverlay, setShowNewItemOverlay] = useState(false);
   const realm = useRealm();
   const user = useUser();
+  const posts = useQuery("Post");
 
   const place = realm.objects("User").filtered("status = 'online'");
+  const progress = realm.objects("Recycled");
+
   const [name, setName] = useState(place[0].username);
+  const [percent, setPercent] = useState("0");
 
   // This is a function that is specific to realm. This is required to update the User information from the realm instance
   useEffect(() => {
@@ -38,6 +42,8 @@ const ProfileScreen = () => {
         // subscribe to all of the logged in user's to-do items
         // use the same name as the initial subscription to update it
         mutableSubs.add(place);
+        mutableSubs.add(progress);
+
         mutableSubs.add(realm.objects("User"), {
           name: "UserSubscription",
           throwOnUpdate: true,
@@ -46,6 +52,14 @@ const ProfileScreen = () => {
     };
     updateSubscriptions();
   }, [realm, user]);
+
+  useEffect(() => {
+    function getProgress() {
+      let total = progress.length;
+      setPercent(total);
+    }
+    getProgress();
+  });
 
   // This function will either create or change the User
   const updateUser = async (userName) => {
@@ -64,6 +78,10 @@ const ProfileScreen = () => {
         );
       });
     }
+  };
+
+  const Picture = (image) => {
+    return <Image source={image}></Image>;
   };
 
   return (
@@ -130,7 +148,7 @@ const ProfileScreen = () => {
 
         <View style={styles.profileImage}>
           <Image
-            source={require("../assets/profile.jpg")}
+            source={require("../assets/Caitlin_Profile.jpeg")}
             style={styles.logo}
           ></Image>
         </View>
@@ -146,7 +164,7 @@ const ProfileScreen = () => {
 
       <View style={styles.statsContainer}>
         <View style={styles.statsBox}>
-          <Text style={[styles.text, { fontSize: 23 }]}>10</Text>
+          <Text style={[styles.text, { fontSize: 23 }]}>{posts.length}</Text>
           <Text style={[styles.text, styles.subText]}>Posts</Text>
         </View>
         <View
@@ -155,11 +173,11 @@ const ProfileScreen = () => {
             { borderColor: "#DFD8C8", borderLeftWidth: 1, borderRightWidth: 1 },
           ]}
         >
-          <Text style={[styles.text, { fontSize: 23 }]}>10</Text>
+          <Text style={[styles.text, { fontSize: 23 }]}>0</Text>
           <Text style={[styles.text, styles.subText]}>Followers</Text>
         </View>
         <View style={styles.statsBox}>
-          <Text style={[styles.text, { fontSize: 23 }]}>10%</Text>
+          <Text style={[styles.text, { fontSize: 23 }]}>{percent}%</Text>
           <Text style={[styles.text, styles.subText]}>Progress</Text>
         </View>
       </View>
@@ -171,9 +189,21 @@ const ProfileScreen = () => {
             height: 300,
             alignItems: "center",
             backgroundColor: "#83c5be",
+            flexDirection: "row",
+            alignSelf: "baseline",
+            flexWrap: "wrap",
           }}
         >
-          <Text></Text>
+          {posts.map((post) => (
+            <View
+              style={{
+                width: 80,
+                height: 80,
+                margin: 15,
+                backgroundColor: "black",
+              }}
+            ></View>
+          ))}
         </View>
       </View>
     </SafeAreaView>
@@ -197,6 +227,10 @@ const styles = StyleSheet.create({
     height: 200,
     borderRadius: 100,
     overflow: "hidden",
+  },
+  posts: {
+    width: 200,
+    height: 200,
   },
   add: {
     backgroundColor: "#41444B",

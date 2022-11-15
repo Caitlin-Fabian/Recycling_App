@@ -12,6 +12,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 // Realm specific
 import { BSON } from "realm";
 import RealmContext from "../RealmContext";
+
 import { loadOptions } from "@babel/core";
 
 const { useRealm, useQuery } = RealmContext;
@@ -80,67 +81,69 @@ const FeedScreen = () => {
 
   return (
     <SafeAreaProvider style={styles.container}>
-      {/* <View style={styles.container}>
+      <ScrollView>
+        {/* <View style={styles.container}>
         {data.map((data) => {
           return <Post username={data.username}></Post>;
         })}
       </View> */}
 
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          onPress={() => {
-            setShowNewItemOverlay(true);
-          }}
-        >
-          <Ionicons
-            name="add-circle-outline"
-            style={styles.addPostButton}
-          ></Ionicons>
-        </TouchableOpacity>
-      </View>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            onPress={() => {
+              setShowNewItemOverlay(true);
+            }}
+          >
+            <Ionicons
+              name="add-circle-outline"
+              style={styles.addPostButton}
+            ></Ionicons>
+          </TouchableOpacity>
+        </View>
 
-      <Overlay
-        isVisible={showNewItemOverlay}
-        onBackdropPress={() => setShowNewItemOverlay(false)}
-      >
-        <PostingScreen
-          onSubmit={({
-            location,
-            description,
-            date_published,
-            image,
-            username,
-          }) => {
-            setShowNewItemOverlay(false);
-            createPost({
+        <Overlay
+          isVisible={showNewItemOverlay}
+          onBackdropPress={() => setShowNewItemOverlay(false)}
+        >
+          <PostingScreen
+            onSubmit={({
               location,
               description,
               date_published,
               image,
               username,
-            });
-          }}
-          onPressBack={({ showNewItemOverlay }) => {
-            setShowNewItemOverlay(false);
-          }}
-        ></PostingScreen>
-      </Overlay>
-      {console.log(realm.objects("Post"))}
-      <View>
-        {posts.map((post) => {
-          return (
-            <View>
-              <Post
-                username={post.username}
-                image={post.image}
-                location={post.location}
-                date={post.date}
-                description={post.description}
-              />
-            </View>
-          );
-        })}
-      </View>
+            }) => {
+              setShowNewItemOverlay(false);
+              createPost({
+                location,
+                description,
+                date_published,
+                image,
+                username,
+              });
+            }}
+            onPressBack={({ showNewItemOverlay }) => {
+              setShowNewItemOverlay(false);
+            }}
+          ></PostingScreen>
+        </Overlay>
+        {console.log(realm.objects("Post"))}
+        <View>
+          {posts.map((post) => {
+            return (
+              <View>
+                <Post
+                  username={post.username}
+                  image={post.image}
+                  location={post.location}
+                  date={post.date}
+                  description={post.description}
+                />
+              </View>
+            );
+          })}
+        </View>
+      </ScrollView>
     </SafeAreaProvider>
   );
 };
@@ -182,7 +185,7 @@ const styles = StyleSheet.create({
     height: 22,
   },
   addPostButton: {
-    marginTop: 70,
+    marginTop: 40,
     marginRight: 20,
     fontSize: 40,
   },

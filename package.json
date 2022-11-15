@@ -18,6 +18,7 @@
     "@react-navigation/bottom-tabs": "^6.4.0",
     "@react-navigation/material-bottom-tabs": "^6.2.4",
     "@react-navigation/native": "^5.9.8",
+    "@react-navigation/native-stack": "^6.9.1",
     "@react-navigation/stack": "^5.14.4",
     "@realm/react": "^0.3.2",
     "expo-cli": "^6.0.6",
@@ -32,6 +33,7 @@
     "react-native-safe-area-context": "^3.4.1",
     "react-native-screens": "^3.18.2",
     "react-native-vector-icons": "^8.1.0",
+    "react-navigation": "^4.4.4",
     "realm": "^10.20.0"
   },
   "devDependencies": {

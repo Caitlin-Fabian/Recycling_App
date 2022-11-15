@@ -1,22 +1,19 @@
 import { BSON } from "realm";
 
-export class Post {
+export class User {
   constructor({ _id = new BSON.ObjectId(), owner_id }) {
     this._id = _id;
     this.owner_id = owner_id;
   }
 
   static schema = {
-    name: "Post",
-    properties: {
-      _id: "objectId",
-      description: "string",
-      owner_id: "string",
-      date_published: "date",
-      image: "string",
-      username: "string",
-      location: "string",
-    },
+    name: "User",
     primaryKey: "_id",
+    properties: {
+      _id: "string",
+      username: "string",
+      status: "string",
+      owner_id: "string",
+    },
   };
 }

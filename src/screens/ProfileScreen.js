@@ -27,8 +27,7 @@ const ProfileScreen = () => {
   const realm = useRealm();
   const user = useUser();
 
-  const place = realm.objects("User");
-
+  const place = realm.objects("User").filtered("status = 'online'");
   const [name, setName] = useState(place[0].username);
 
   // This is a function that is specific to realm. This is required to update the User information from the realm instance

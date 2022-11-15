@@ -5,8 +5,9 @@ import { BSON } from "realm";
 import { useUser, useApp } from "@realm/react";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { Overlay, ListItem } from "react-native-elements";
-import { getQuantity } from "../components/CreateItem";
 import { fetchWaterbottle, waterbottle0 } from "../components/assistfunctions";
+import { TouchableOpacity, ScrollView } from "react-native-gesture-handler";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 import { CreateItem } from "../components/CreateItem";
 import RealmContext from "../RealmContext";
@@ -50,6 +51,9 @@ const ProgressScreen = () => {
           .filtered(`owner_id == "${user.id}"`);
         // use the same name as the initial subscription to update it
         mutableSubs.add(ownItems, { name: "ownItems" });
+        mutableSubs.add(recyclablesPaper);
+        mutableSubs.add(recyclablesMetal);
+        mutableSubs.add(recyclablesPlastic);
       });
     };
     updateSubscriptions();
@@ -104,21 +108,27 @@ const ProgressScreen = () => {
     <SafeAreaProvider>
       <View style={styles.container}>
         <View style={styles.buttonContainer}>
-          <Button
-            title="Delete"
+          <TouchableOpacity
             onPress={() => {
               deleteItems();
               setIndex(0);
               setImage(waterbottle0);
             }}
-          />
-          <Button
-            title="Add Recyclable"
+          >
+            <Ionicons
+              name="trash-outline"
+              style={styles.deleteButton}
+            ></Ionicons>
+          </TouchableOpacity>
+
+          <TouchableOpacity
             onPress={() => {
               setShowNewItemOverlay(true);
               checkCount();
             }}
-          ></Button>
+          >
+            <Ionicons name="add-outline" style={styles.addButton}></Ionicons>
+          </TouchableOpacity>
         </View>
         <View style={styles.counts}>
           <Text style={styles.cols}>
@@ -189,6 +199,16 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignSelf: "stretch",
     marginTop: 50,
+  },
+  deleteButton: {
+    marginTop: 10,
+    marginLeft: 10,
+    fontSize: 40,
+  },
+  addButton: {
+    marginTop: 10,
+    marginRight: 10,
+    fontSize: 40,
   },
 });
 

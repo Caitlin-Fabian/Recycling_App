@@ -6,8 +6,14 @@ export default function Post({ username, image, location, date, description }) {
     <View style={styles.Post}>
       <View style={styles.Group534}>
         <View style={styles.User}>
-          <Image style={styles.profile} source={image} />
-          <Text style={styles.Txt242}>{username}</Text>
+        
+        <View style={styles.profileImage}>
+          <Image
+            source={require("../assets/profile.jpg")}
+            style={styles.logo}
+          ></Image>
+        </View>
+          <Text style={styles.Txt242}> {username}</Text>
         </View>
         <Image style={styles.Image} source={image.image} />
         <Text>{description}</Text>
@@ -33,7 +39,7 @@ const styles = StyleSheet.create({
     paddingLeft: 4,
     paddingRight: 4,
     borderRadius: 20,
-    backgroundColor: "rgba(0,168,150,1)",
+    //backgroundColor: "rgba(0,168,150,1)",
     minWidth: 370,
     minHeight: 237,
     margin: 5,
@@ -49,17 +55,18 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     paddingTop: 0,
     paddingBottom: 0,
-    paddingLeft: 0,
+    paddingLeft: 3,
     paddingRight: 31,
     marginBottom: 3,
   },
-  profile: {
-    width: 30,
-    height: 30,
-    marginRight: 8,
+  profileImage: {
+    width: 25,
+    height: 25,
+    borderRadius: 25,
+    overflow: "hidden",
   },
   Txt242: {
-    fontSize: 19,
+    fontSize: 16,
     fontFamily: "Fredoka One",
     fontWeight: "700",
     color: "rgba(0,0,0,1)",
@@ -68,34 +75,34 @@ const styles = StyleSheet.create({
   },
 
   Image: {
-    width: 360,
+    width: 370,
     maxHeight: 500,
-    marginBottom: 3,
-    backgroundColor: "#000000",
+    marginBottom: 5,
+    backgroundColor: "#FFFFFF",
     borderRadius: 10,
-    height: 200,
+    height: 250,
   },
   BommomPart: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    paddingTop: 0,
+    paddingTop: 3,
     paddingBottom: 0,
     paddingLeft: 0,
-    paddingRight: 0,
+    paddingRight: 15,
   },
   Comment: {
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    paddingTop: 0,
+    paddingTop: 5,
     paddingBottom: 0,
-    paddingLeft: 7,
-    paddingRight: 101,
-    marginRight: 11,
-    borderRadius: 11,
+    paddingLeft: 30,
+    paddingRight: 100,
+    marginRight: 19,
+    borderRadius: 20,
     backgroundColor: "rgba(131,197,190,1)",
   },
   Txt399: {
@@ -103,12 +110,12 @@ const styles = StyleSheet.create({
     fontFamily: "Fredoka One",
     fontWeight: "400",
     color: "rgba(0,0,0,1)",
-    width: 195,
+    width: 192,
     height: 22,
   },
 
   IconHeartOutline: {
     width: 23.06,
     height: 21,
-  },
+  }
 });

@@ -1,6 +1,6 @@
-import * as React from 'react';
-import {Button, Alert} from 'react-native';
-import {useUser} from '@realm/react';
+import * as React from "react";
+import { TouchableOpacity, StyleSheet, Alert, Text } from "react-native";
+import { useUser } from "@realm/react";
 
 export function LogoutButton() {
   const user = useUser();
@@ -13,18 +13,28 @@ export function LogoutButton() {
   };
 
   return (
-    <Button
-      title="Log Out"
+    <TouchableOpacity
       onPress={() => {
-        Alert.alert('Log Out', null, [
+        Alert.alert("Log Out", null, [
           {
-            text: 'Yes, Log Out',
-            style: 'destructive',
+            text: "Yes, Log Out",
+            style: "destructive",
             onPress: () => signOut(),
           },
-          {text: 'Cancel', style: 'cancel'},
+          { text: "Cancel", style: "cancel" },
         ]);
       }}
-    />
+    >
+      <Text style={styles.button}>Log Out</Text>
+    </TouchableOpacity>
   );
 }
+
+const styles = StyleSheet.create({
+  button: {
+    color: "#52575D",
+    marginLeft: 20,
+    fontFamily: "Fredoka One",
+    fontSize: 20,
+  },
+});
